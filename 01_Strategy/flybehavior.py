@@ -12,3 +12,7 @@ class FlyWithWings(FlyBehavior):
 class FlyNoWay(FlyBehavior):
     def fly(self):
         print("飛べません")
+        
+class FlyRocketPoweres(FlyBehavior):
+    def fly(self):
+        print("ロケットで飛んでいます！")

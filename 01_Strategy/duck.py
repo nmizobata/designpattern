@@ -18,6 +18,12 @@ class Duck(ABC):
     def performQuack(self):
         self.quackBehavior.quack()
         
+    def setFlyBehavior(self, flybehavior:fly.FlyBehavior):
+        self.flyBehavior = flybehavior
+        
+    def setQuackBehavior(self, quackbehavior:quack.QuackBehavior):
+        self.quackBehavior = quackbehavior
+        
     def swim():
         print("すべてのカモは浮きます。おもちゃのカモでも")
         
@@ -28,6 +34,14 @@ class MallardDuck(Duck):
     
     def display(self):
         print("私は本物のマガモです")
+        
+class ModelDuck(Duck):
+    def __init__(self):
+        self.flyBehavior = fly.FlyNoWay()
+        self.quackBehavior = quack.Quack()
+        
+    def display(self):
+        print("私は模型のカモです")
 
 
 if __name__ == "__main__":
@@ -35,5 +49,14 @@ if __name__ == "__main__":
     mallard.display()
     mallard.performFly()
     mallard.performQuack()
+    
+    modelduck = ModelDuck()
+    modelduck.display()
+    modelduck.performFly()
+    modelduck.setFlyBehavior(fly.FlyRocketPoweres())
+    modelduck.performFly()
+
+    modelduck.performQuack()
+    
 
     
