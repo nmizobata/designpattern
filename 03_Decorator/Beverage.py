@@ -14,28 +14,28 @@ class HouseBlend(Beverage):
         self.description = "ハウスブレンドコーヒー"
         
     def cost(self):
-        return 50
+        return 0.89
     
 class DarkRoast(Beverage):
     def __init__(self):
         self.description = "ダークローストコーヒー"
     
     def cost(self):
-        return 80
+        return 0.99
     
 class Espresso(Beverage):
     def __init__(self):
         self.description = "エスプレッソコーヒー"
         
     def cost(self):
-        return 70
+        return 1.99
     
 class Decaf(Beverage):
     def __init__(self):
         self.description = "デカフェコーヒー"
     
     def cost(self):
-        return 30
+        return 1.05
     
 class CondimentDecorator(Beverage):
     def __init__(self, wrapped_class:Beverage):
@@ -56,7 +56,7 @@ class Milk(CondimentDecorator):
         return self.wrapped_class.description + " ミルク入り"
         
     def cost(self):
-        return 5 + self.wrapped_class.cost()
+        return 0.10 + self.wrapped_class.cost()
     
 class Mocha(CondimentDecorator):
     
@@ -64,7 +64,7 @@ class Mocha(CondimentDecorator):
         return self.wrapped_class.description + " モカ入り"
     
     def cost(self):
-        return 13 + self.wrapped_class.cost()
+        return 0.20 + self.wrapped_class.cost()
     
 class Soy(CondimentDecorator):
     
@@ -72,7 +72,7 @@ class Soy(CondimentDecorator):
         return self.wrapped_class.description + " 豆乳入り"
     
     def cost(self):
-        return 3 + self.wrapped_class.cost()
+        return 0.15 + self.wrapped_class.cost()
     
 class Whip(CondimentDecorator):
         
@@ -80,11 +80,13 @@ class Whip(CondimentDecorator):
         return self.wrapped_class.description + " ホイップ入り"
     
     def cost(self):
-        return 20 + self.wrapped_class.cost()
+        return 0.10 + self.wrapped_class.cost()
     
 if __name__== "__main__":
-    order = DarkRoast()
+    order = HouseBlend()
     order = Whip(order)
     order = Mocha(order)
+    order = Mocha(order)
+    order = Soy(order)
     print("オーダーは{}です".format(order.description))
     print("料金は{}ドルです".format(order.cost()))
