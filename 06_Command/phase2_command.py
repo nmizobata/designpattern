@@ -159,7 +159,8 @@ class MacroCommand(Command):
             command_item.execute()
 
     def undo(self):
-        pass
+        for command_item in self.commands:
+            command_item.undo()
 
 if __name__=="__main__":
     light_genkan = vender.Light("玄関")
