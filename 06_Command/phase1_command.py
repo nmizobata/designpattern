@@ -3,7 +3,7 @@
 '''
 
 from abc import ABC, abstractmethod
-import vender_lib as vender
+import phase1_vender_lib as vender
 
 class Command(ABC):
     @abstractmethod
