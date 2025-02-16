@@ -2,9 +2,9 @@
 メイン
 '''
 
-import remotecontrol
-import command
-import vender_lib
+import phase1_remotecontrol as remotecontrol
+import phase1_command as command
+import phase1_vender_lib as vender_lib
 
 remote = remotecontrol.SimpleRemoteControl()
 light_living = vender_lib.Light("リビング")
