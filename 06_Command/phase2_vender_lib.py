@@ -24,15 +24,27 @@ class Light:
 class CeilingFan:
     def __init__(self, name):
         self.name = name
-        self.onoff = "off"
-        
-    def on(self):
-        self.onoff = "on"
-        print("{}のCeiling FanはOnになりました".format(self.name))
-        
+        self.speed = "Off"
+    
+    def high(self):
+        self.speed = "High"
+        print("{}のCeiling FanはHighになりました".format(self.name))
+    
+    def medium(self):
+        self.speed = "Medium"
+        print("{}のCeiling FanはMediumになりました".format(self.name))
+
+    def low(self):
+        self.speed = "Low"
+        print("{}のCeiling FanはLowになりました".format(self.name))
+
     def off(self):
-        self.onoff = "off"
+        self.speed = "Off"
         print("{}のCeiling Fanは止まっています".format(self.name))
+        
+    def getStatus(self):
+        return self.speed
+    
 
 class GarageDoor:
     def __init__(self):
@@ -49,6 +61,7 @@ class GarageDoor:
 class Stereo:
     def __init__(self, name):
         self.name = name
+        self.main_onoff = "off"
         self.cd_onoff = "off"
         self.dvd_onoff = "off"
         self.radio_onoff = "off"
@@ -75,10 +88,12 @@ class Stereo:
         self.radio_onoff = "on"
         print("{}のステレオにRadioがセットされました".format(self.name))
 
-    def Off(self):
-        self.cd_onoff = "off"
-        self.dvd_onoff = "off"
-        self.radio_onoff = "off"
+    def on(self):
+        self.main_onoff = "on"
+        print("{}のステレオの電源がONになりました".format(self.name))
+        
+    def off(self):
+        self.main_onoff = "off"
         print("{}のステレオの電源を消しました".format(self.name))
         
     def setVolume(self, vol:int):
@@ -88,4 +103,11 @@ class Stereo:
             vol = 7
         self.volume = vol
         print("{}のステレオのボリュームを{}にセットしました".format(self.name, self.volume))
+
+if __name__=="__main__":
+    stereo = Stereo("リビング")
+    stereo.on()
+    stereo.setCd()
+    stereo.setVolume(11)
+    stereo.off()
     
