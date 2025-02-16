@@ -6,4 +6,10 @@
 
 ## 雑学
 - インスタンスの元のクラス名を得るには、instance.__class__.__name__とする。ちなみにさらにそのうえを得るにはinstance.__class__.__class__.__name__とする。
-- 
+- 辞書型でSwitch構文を作れる。
+- 辞書型で実行する関数を選択する場合、辞書の変数宣言で実行されないようにするには関数の()を除いて宣言し、実行するタイミングで()を付ける。
+  - 例
+  ```
+    command_dic = {'High':ceilingfan.high,'Medium':ceilingfan.medium,'Low':ceilingfan.low,'Off':ceilingfan.off}
+    command_dic[command]()
+  ```
