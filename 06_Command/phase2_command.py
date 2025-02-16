@@ -73,7 +73,11 @@ class CeilingFanHighCommand(Command):
         self.ceilingfan.high()
             
     def undo(self):
-        CeilingFan_dic = {'High':self.ceilingfan.high,'Medium':self.ceilingfan.medium,'Low':self.ceilingfan.low,'Off':self.ceilingfan.off}
+        CeilingFan_dic = {
+            'High':self.ceilingfan.high,
+            'Medium':self.ceilingfan.medium,
+            'Low':self.ceilingfan.low,
+            'Off':self.ceilingfan.off}
         CeilingFan_dic[self.prev_status]()
 
 class CeilingFanMidiumCommand(Command):
@@ -86,7 +90,11 @@ class CeilingFanMidiumCommand(Command):
         self.ceilingfan.medium()
             
     def undo(self):
-        CeilingFan_dic = {'High':self.ceilingfan.high,'Medium':self.ceilingfan.medium,'Low':self.ceilingfan.low,'Off':self.ceilingfan.off}
+        CeilingFan_dic = {
+            'High':self.ceilingfan.high,
+            'Medium':self.ceilingfan.medium,
+            'Low':self.ceilingfan.low,
+            'Off':self.ceilingfan.off}
         CeilingFan_dic[self.prev_status]()
 
 
@@ -100,7 +108,11 @@ class CeilingFanLowiumCommand(Command):
         self.ceilingfan.low()
             
     def undo(self):
-        CeilingFan_dic = {'High':self.ceilingfan.high,'Medium':self.ceilingfan.medium,'Low':self.ceilingfan.low,'Off':self.ceilingfan.off}
+        CeilingFan_dic = {
+            'High':self.ceilingfan.high,
+            'Medium':self.ceilingfan.medium,
+            'Low':self.ceilingfan.low,
+            'Off':self.ceilingfan.off}
         CeilingFan_dic[self.prev_status]()
 
 class CeilingFanOffCommand(Command):
@@ -112,7 +124,11 @@ class CeilingFanOffCommand(Command):
         self.ceilingfan.off()
         
     def undo(self):
-        CeilingFan_dic = {'High':self.ceilingfan.high,'Medium':self.ceilingfan.medium,'Low':self.ceilingfan.low,'Off':self.ceilingfan.off}
+        CeilingFan_dic = {
+            'High':self.ceilingfan.high,
+            'Medium':self.ceilingfan.medium,
+            'Low':self.ceilingfan.low,
+            'Off':self.ceilingfan.off}
         CeilingFan_dic[self.prev_status]()
 class GarageDoorUpCommand(Command):
     def __init__(self, garagedoor:vender.GarageDoor):

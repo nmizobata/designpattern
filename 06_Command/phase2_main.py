@@ -51,7 +51,11 @@ macro_off_command_list.append(stereo_off)
 macro_off = command.MacroCommand(macro_off_command_list)
 remote.setCommand(5, macro_on, macro_off)
 
-print(remote)
+remote.onButtonWasPressed(2)
+remote.onButtonWasPressed(3)
+remote.undoButtunWasPressed()
+
+
 
 remote.onButtonWasPressed(5)
 remote.offButtonWasPressed(5)
