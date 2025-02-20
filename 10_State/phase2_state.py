@@ -72,7 +72,7 @@ class NoQuarterState(State):
         print("まずお金を払う必要があります")
 
 class HasQuarterState(State):
-    def __innit__(self, gumballMachine):
+    def __init__(self, gumballMachine):
         self.gumballMachine = gumballMachine
     
     def insertQuarter(self):
@@ -140,12 +140,27 @@ class GumballMachine:
         print("ガムボールがスロットから出てきます")
         if self.count != 0:
             self.count = self.count - 1 
-            
+    
+    def getNoQuarterState(self):
+        return self.noQuarterState
+    
+    def getSoldState(self):
+        return self.setState
+    
+    def getSoldOutState(self):
+        return self.soldOutState
+    
+    def getHasQuarterState(self):
+        return self.hasQuarterState
+    
+    def getCount(self):
+        return self.count
+    
     def __str__(self):
-        state_dic = {GumballMachine.NO_QUARTER:"は25セントが投入されるのを待っています。",
-                     GumballMachine.SOLD_OUT:"のガムボールは売り切れです。",
-                     GumballMachine.SOLD:"のハンドルが回されました。ガムボールを出す準備をしています。",
-                     GumballMachine.HAS_QUARTER:"には25セントが投入されています。ハンドルが回されるのを待っています"}
+        state_dic = {self.noQuarterState:"は25セントが投入されるのを待っています。",
+                     self.soldOutState:"のガムボールは売り切れです。",
+                     self.soldState:"のハンドルが回されました。ガムボールを出す準備をしています。",
+                     self.hasQuarterState:"には25セントが投入されています。ハンドルが回されるのを待っています"}
         string = "\nMighty Gumball, Inc.\n"
         string += "Java対応据付型ガムボール モデル#2004\n"
         string += "在庫:{}個のガムボール\n".format(self.count)
