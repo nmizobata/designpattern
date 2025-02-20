@@ -27,14 +27,22 @@ class List_Iterator:
         return self
     
     def __next__(self):
-        self.num += 1 
-        if self.num+1 > len(self.list_):
+        self.num += 1
+        if self.num > len(self.list_):
             raise StopIteration
-        return self.list_[self.num]
+        else:
+            return self.list_[self.num-1]
 
-class Test:
+class Test_dic:
     def __init__(self):
         self.dict_ = {1:"a",2:"b",3:"c",4:"d",5:"e"}
+        print(self.dict_.values())
+    def createIterator(self):
+        return List_Iterator(list(self.dict_.values()))
+    
+class Test2_dic2:
+    def __init__(self):
+        self.dict_ = {1:["a","b"],2:["c","d"], 3:["e","f"],4:["g","h"]}
         print(self.dict_.values())
     def createIterator(self):
         return List_Iterator(list(self.dict_.values()))
@@ -68,6 +76,10 @@ while True:
         break
     
     
-test_list = Test().createIterator()
+test_list = Test_dic().createIterator()
 for i in test_list:
+    print(i)
+    
+test2_list = Test2_dic2().createIterator()
+for i in test2_list:
     print(i)
