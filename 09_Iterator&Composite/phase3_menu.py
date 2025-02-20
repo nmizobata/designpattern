@@ -1,64 +1,5 @@
 from abc import ABC, abstractmethod
 
-class DinerMenuIterator:
-    def __init__(self, items):
-        self.position = 0
-        self.items = items
-    
-    def __itr__(self):
-        return self
-    
-    def __next__(self):
-        if self.hasNext():
-            menuItem = self.items[self.position]
-            self.position += 1
-            return menuItem
-        else:
-            raise StopIteration
-    
-    def hasNext(self) -> bool:
-        if (self.position >= len(self.items) or self.items[self.position] is None):
-            return False
-        else:
-            return True
-        
-
-class PancakeMenuIterator:
-    def __init__(self, menulist):
-        self.num = 0
-        self.menulist = menulist
-    
-    def __itr__(self):
-        return self
-    
-    def __next__(self):
-        if self.hasNext(self):
-            menuItem = self.menulist[self.num]
-            self.num += 1
-            return menuItem
-        else:
-            raise StopIteration
-    
-    def hasNext(self) -> bool:
-        if (self.num >= len(self.menulist)):
-            return False
-        else:
-            return True
-
-class CafeMenuIterator:
-    def __init__(self, menulist):
-        self.menulist = menulist
-        self.num = 0
-    
-    def __itr__(self):
-        return self
-    
-    def __next__(self):
-        item = self.menulist[self.num]
-        self.num += 1
-        return item
-        
-
 class MenuItem:
     def __init__(self, name:str, description:str, vegetarian: bool, price:float):
         self.name = name
@@ -81,8 +22,7 @@ class MenuItem:
 class Menu(ABC):
     @abstractmethod
     def createIterator(self):
-        pass
- 
+        pass 
 class PancakeHouseMenu(Menu):
     def __init__(self):
         self.menuItems = []
@@ -112,9 +52,6 @@ class PancakeHouseMenu(Menu):
     
     def createIterator(self):
         return PancakeMenuIterator(self.menuItems)
-        
-
-    
 class DinerMenu(Menu):
     MAX_ITEMS = 6
     def __init__(self):
@@ -180,29 +117,90 @@ class CafeMenu(Menu):
         
     # def getMenuItems(self):
     #     return self.menuItems
-    def __str__(self):
-        
-        return self.menuItems
     
     def createIterator(self):
         return CafeMenuIterator(list(self.menuItems.values()))
 
-if __name__=="__main__":
-    # dinerMenuIterator = DinerMenu().createIterator()
-    # for menu in dinerMenuIterator:
-    #     print("name:{} description:{} vegetarian:{} price:{}".format(menu.name,menu.description,menu.vegetarian,menu.price))
+class Iterator(ABC):
+    @abstractmethod
+    def __iter__(self):
+        pass
+    
+    @abstractmethod
+    def __next__(self):
+        pass
+class DinerMenuIterator:
+    def __init__(self, items):
+        self.position = 0
+        self.items = items
+    
+    def __iter__(self):
+        return self
+    
+    def __next__(self):
+        if self.hasNext():
+            menuItem = self.items[self.position]
+            self.position += 1
+            return menuItem
+        else:
+            raise StopIteration
+    
+    def hasNext(self) -> bool:
+        if (self.position >= len(self.items) or self.items[self.position] is None):
+            return False
+        else:
+            return True
         
-    # pancakeMenuIterator = PancakeHouseMenu().createIterator()
-    # for menu in pancakeMenuIterator:
-    #     print("name:{} description:{} vegetarian:{} price:{}".format(menu.name,menu.description,menu.vegetarian,menu.price))
+class PancakeMenuIterator:
+    def __init__(self, menulist):
+        self.num = 0
+        self.menulist = menulist
+    
+    def __iter__(self):
+        return self
+    
+    def __next__(self):
+        if self.hasNext():
+            menuItem = self.menulist[self.num]
+            self.num += 1
+            return menuItem
+        else:
+            raise StopIteration
+    
+    def hasNext(self) -> bool:
+        if (self.num >= len(self.menulist)):
+            return False
+        else:
+            return True
 
+class CafeMenuIterator:
+    def __init__(self, menulist):
+        self.menulist = menulist
+        self.num = 0
+    
+    def __iter__(self):
+        return self
+    
+    def __next__(self):
+        if self.num+1 > len(self.menulist):
+            raise StopIteration
+        else:
+            item = self.menulist[self.num]
+            self.num += 1
+            return MenuItem(*item)
+            # return MenuItem(item[0], item[1],item[2],item[3])
+            # return dict(zip(["name","description","vegeterian","price"],item))
+        
 
-    # cafeMenuIterator = CafeMenu().createIterator()
-    # for menu in cafeMenuIterator:
-    #     print("name:{} description:{} vegetarian:{} price:{}".format(menu.name,menu.description,menu.vegetarian,menu.price))
-    print(list(CafeMenu().menuItems.values()))
-    cafeMenuIterator = CafeMenuIterator(list(CafeMenu().menuItems.values()))
-    next(cafeMenuIterator)
-    print(cafeMenuIterator)
-    # for menu in cafeMenuIterator:
-        # print("name:{} descri/ption:{} vegetarian:{} price:{}".format(menu.name,menu.description,menu.vegetarian,menu.price))
+if __name__=="__main__":
+    dinerMenuIterator = DinerMenu().createIterator()
+    for menu in dinerMenuIterator:
+        print("name:{} description:{} vegetarian:{} price:{}".format(menu.name,menu.description,menu.vegetarian,menu.price))
+        
+    pancakeMenuIterator = PancakeHouseMenu().createIterator()
+    for menu in pancakeMenuIterator:
+        print("name:{} description:{} vegetarian:{} price:{}".format(menu.name,menu.description,menu.vegetarian,menu.price))
+
+    cafeMenuIterator = CafeMenu().createIterator()
+    for menu in cafeMenuIterator:
+        print("name:{} description:{} vegetarian:{} price:{}".format(menu.name,menu.description,menu.vegetarian,menu.price))
