@@ -1,4 +1,4 @@
-import phase1_state as state
+import phase2_state as state
 
 GumballMachine = state.GumballMachine(5)
 
