@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import random
 
 class State(ABC):
     @abstractmethod
@@ -72,6 +73,7 @@ class NoQuarterState(State):
         print("まずお金を払う必要があります")
 
 class HasQuarterState(State):
+    
     def __init__(self, gumballMachine):
         self.gumballMachine = gumballMachine
     
@@ -84,10 +86,41 @@ class HasQuarterState(State):
 
     def turnCrank(self):
         print("ハンドルを回しました")
-        self.gumballMachine.setState(self.gumballMachine.getSoldState())
+        winner = random.randint(0,1)
+        if winner == 0 and self.gumballMachine.getCount() > 1:
+            print("当たりです！ 25セントで2つのガムボールがもらえます")
+            self.gumballMachine.setState(self.gumballMachine.getWinnerState())
+        else:
+            print("残念、はずれです！ 1つのガムボールがもらえます")
+            self.gumballMachine.setState(self.gumballMachine.getSoldState())
 
     def dispense(self):
         print("ガムボールが出せません")
+
+class WinnerState(State):
+    def __init__(self, gumballMachine):
+        self.gumballMachine = gumballMachine
+        
+    def insertQuarter(self):
+        print("お待ちください。もう一つガムボールを出す準備をしています")
+
+    def ejectQuarter(self):
+        print("申し訳ありません。すでにハンドルを回しています")
+
+    def turnCrank(self):
+        print("2回回してもガムボールをもう一つ手に入れることはできません")
+
+    def dispense(self):
+        self.gumballMachine.releaseBall()
+        if self.gumballMachine.getCount() == 0:
+            self.gumballMachine.setState(self.gumballMachine.getSoldOutState())
+        else:
+            self.gumballMachine.releaseBall()
+            if self.gumballMachine.getCount() > 0 :
+                self.gumballMachine.setState(self.gumballMachine.getNoQuarterState())
+            else:
+                print("おっと、ガムボールが無くなりました")
+                self.gumballMachine.setState(self.gumballMachine.getSoldOutState())
 
 class GumballMachine:
     def __init__(self, numberGumballs:int):
@@ -95,6 +128,7 @@ class GumballMachine:
         self.noQuarterState = NoQuarterState(self)
         self.hasQuarterState = HasQuarterState(self)
         self.soldState = SoldState(self)
+        self.winnerState = WinnerState(self)
         
         self.count = numberGumballs
         if numberGumballs > 0:
@@ -131,6 +165,9 @@ class GumballMachine:
     
     def getHasQuarterState(self):
         return self.hasQuarterState
+    
+    def getWinnerState(self):
+        return self.winnerState
     
     def getCount(self):
         return self.count
