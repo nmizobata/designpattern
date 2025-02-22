@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
-import phase2_duck as duck
+import phase5_duck as duck
 import phase2_goose as goose
-import phase3_counter_decorater as counter
+import phase5_counter_decorater as counter
 
 class AbstractDuckFactory(ABC):
     @abstractmethod

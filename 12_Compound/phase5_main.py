@@ -1,6 +1,7 @@
-import phase3_counter_decorater as counter
-import phase4_duck as duck
-import phase3_abstractfactory as factory
+import phase5_counter_decorater as counter
+import phase5_duck as duck
+import phase5_abstractfactory as factory
+import phase5_observe as observe
 
 def main():
     duckFactory = factory.CountingDuckFactory()
@@ -30,6 +31,12 @@ def main():
     flockOfMallards.add(mallard4)
     
     flockOfDucks.add(flockOfMallards)
+    
+    quacklogist = observe.Quacklogist()
+    flockOfDucks.registerObserver(quacklogist)
+    
+    birdwatcher = observe.BirdWatcher()
+    flockOfMallards.registerObserver(birdwatcher)
     
     print("\nカモシミュレータ 群れ全体のシミュレーション")
     simulate(flockOfDucks)
