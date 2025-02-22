@@ -7,7 +7,7 @@ class Quackable(ABC):
 class MallardDuck(Quackable):
     def quack(self):
         print("ガーガー")
-        
+
 class RedheadDuck(Quackable):
     def quack(self):
         print("ガーガー")

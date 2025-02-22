@@ -1,4 +1,4 @@
-import phase3_decorater as counter
+import phase3_counter_decorater as counter
 import phase3_duck as duck
 import phase3_abstractfactory as factory
 
